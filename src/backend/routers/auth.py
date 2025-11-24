@@ -2,9 +2,25 @@
 Authentication endpoints for the High School Management System API
 """
 
-from fastapi import APIRouter, HTTPException
-from typing import Dict, Any
-
+from fastapi import APIRouter, HTTPException, Depends, Request
+from typing import Dict, Any, Optional
+def get_current_user(request: Request) -> Optional[Dict[str, Any]]:
+    """
+    Dummy authentication dependency for demonstration.
+    Checks for 'X-Username' header and returns user info if valid.
+    Replace with real session/cookie logic for production.
+    """
+    username = request.headers.get("X-Username")
+    if not username:
+        return None
+    teacher = teachers_collection.find_one({"_id": username})
+    if not teacher:
+        return None
+    return {
+        "username": teacher["username"],
+        "display_name": teacher["display_name"],
+        "role": teacher["role"]
+    }
 from ..database import teachers_collection, verify_password
 
 router = APIRouter(
