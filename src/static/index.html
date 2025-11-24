@@ -22,6 +22,10 @@
         <div id="user-info" class="hidden">
           <span id="display-name"></span>
           <button id="logout-button">Logout</button>
+          <button id="manage-announcements-btn" class="icon-button hidden">
+            <span class="announcement-icon">📢</span>
+            <span>Manage Announcements</span>
+          </button>
         </div>
       </div>
     </div>
@@ -133,9 +137,32 @@
   </div>
 
   <script src="app.js"></script>
-  <aside class="announcement-banner" role="alert" aria-label="Announcement">
-    📢 Activity registration is open until the end of the month. Don't lose your spot!
-  </aside>
+  <div id="announcement-banner-container"></div>
+
+  <!-- Announcement Management Modal -->
+  <div id="announcement-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-announcement-modal">&times;</span>
+      <h3>Manage Announcements</h3>
+      <div id="announcement-list"></div>
+      <form id="announcement-form">
+        <div class="form-group">
+          <label for="announcement-message">Message:</label>
+          <input type="text" id="announcement-message" required placeholder="Announcement message" />
+        </div>
+        <div class="form-group">
+          <label for="announcement-start">Start Date (optional):</label>
+          <input type="datetime-local" id="announcement-start" />
+        </div>
+        <div class="form-group">
+          <label for="announcement-expire">Expiration Date:</label>
+          <input type="datetime-local" id="announcement-expire" required />
+        </div>
+        <button type="submit">Add Announcement</button>
+      </form>
+      <div id="announcement-modal-message" class="hidden message"></div>
+    </div>
+  </div>
 </body>
 
 </html>
